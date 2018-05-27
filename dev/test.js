@@ -2,7 +2,7 @@ const Blockchain = require('./blockchain.js');
 const bitcoin = new Blockchain();
 
 const previousBlockHash = 'LJDIFKDFJLSFJDLFSFLJDF459489';
-const currentBlocckData = [
+const currentBlockData = [
   {
     amount: 100,
     sender: 'NFDLFJLKDFJDF',
@@ -19,8 +19,7 @@ const currentBlocckData = [
     recipient: 'JJDLJYOPWBAISDFFDLKJFOSIFJD'
   }
 ];
-const nonce = 100;
 
-
-console.log(bitcoin.hashBlock(previousBlockHash, currentBlocckData, nonce));
+bitcoin.hashBlock()
+console.log(bitcoin.proofOfWork(previousBlockHash, currentBlockData));
 

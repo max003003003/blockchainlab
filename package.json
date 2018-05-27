@@ -4,7 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "node_1": "nodemon --watch dev -e js dev/networknode.js 3001 http://locahost:3001",
+    "node_2": "nodemon --watch dev -e js dev/networknode.js 3002 http://locahost:3002",
+    "node_3": "nodemon --watch dev -e js dev/networknode.js 3003 http://locahost:3003",
+    "node_4": "nodemon --watch dev -e js dev/networknode.js 3004 http://locahost:3004",
+    "node_5": "nodemon --watch dev -e js dev/networknode.js 3005 http://locahost:3005"
   },
   "author": "",
   "license": "ISC",
@@ -13,6 +18,11 @@
     "babel-preset-env": "^1.7.0"
   },
   "dependencies": {
-    "sha256": "^0.2.0"
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "request": "^2.87.0",
+    "request-promise": "^4.2.2",
+    "sha256": "^0.2.0",
+    "uuid": "^3.2.1"
   }
 }
