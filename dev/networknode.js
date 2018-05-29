@@ -17,8 +17,11 @@ app.get('/blockchain',(req,res)=>{
 
 //create new transaction to blockchain
 app.post('/transaction',(req,res)=>{
-  const blockIndex = bitcoin.createNewTransaction(req.body.amount,req.body.sender, req.body.recipient);
-  res.json({ note: `Transaction will be added in block ${blockIndex}.`});
+  const newTransaction = req.body;
+  const blockIndex = bitcoin.addTransactionToPendingTransaction(newTransaction);
+  res.json({
+    note: `Transaction will be added in block ${blockIndex}`
+  })
 })
 //mine a block
 app.get('/mine',(req,res)=>{
