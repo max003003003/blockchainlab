@@ -12,11 +12,10 @@
     "node_5": "nodemon --watch dev -e js dev/networknode.js 3005 http://localhost:3005"
   },
   "author": "",
-  "license": "ISC",  
+  "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
-    "request": "^2.87.0",
     "request-promise": "^4.2.2",
     "sha256": "^0.2.0",
     "uuid": "^3.2.1"

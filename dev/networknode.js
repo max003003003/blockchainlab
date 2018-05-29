@@ -99,6 +99,30 @@ app.post('/register-nodes-bulk', (req,res)=>{
     note: 'Bulk registration successful.'
   })
 })
+
+app.post('/transaction/broadcast',async (req,res)=>{
+  const newTransaction = bitcoin.createNewTransaction(
+    req.body.amount,
+    req.body.sender,
+    req.body.recipient
+  );
+  const requestPromise = [];
+  bitcoin.addTransactionToPendingTransaction(newTransaction);
+  bitcoin.networkNodes.map(networkNodeUrl => {
+     const requestOptions = {
+       uri: networkNodeUrl + '/transaction',
+       method: 'POST',
+       body: newTransaction,
+       json: true
+     }
+     requestPromise.push(requestOptions)
+  })
+  await Promise.all(requestPromise)
+  res.send({
+    note: 'Transaction created and broadcast successfullyy.'
+  })
+})
+
 app.listen(port, ()=>{
   console.log(`Listening on port ${port} ...`)
 })
