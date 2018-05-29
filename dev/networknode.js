@@ -78,9 +78,10 @@ app.post('/register-add-broadcast-node', async(req,res)=>{
 // register a node with network
 app.post('/register-node',(req,res)=>{
   const newNodeUrl = req.body.newNodeUrl;
-  const nodeNotAlreadyPresent = bitcoin.networkNodes.indexOf(newNodeUrl) == -1;
+  const nodeNotAlreadyPresent = bitcoin.networkNodes.indexOf(newNodeUrl) === -1;
   const notCurrentNode = bitcoin.currentNodeUrl !== newNodeUrl;
-  if(nodeNotAlreadyPresent && notCurrentNode) bitcoin.networkNodes.push(newNodeUrl);
+  if(nodeNotAlreadyPresent && notCurrentNode)
+   bitcoin.networkNodes.push(newNodeUrl);
   res.json({
     notes: 'New node registered successfully'
   })
