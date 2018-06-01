@@ -35,6 +35,8 @@ jobs:
         
       # run tests!
       - run: npm run test
+      
+      - run:
           name: Jest Suite
           command: yarn jest tests --ci --testResultsProcessor="jest-junit"
           environment:
