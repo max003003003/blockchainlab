@@ -31,6 +31,7 @@ app.get('/mine',async(req,res)=>{
       transactions: bitcoin.pendingTransaction,
       index: lastBlock['index'] + 1 
   };
+  //console.log(currentBlockData);
   const nounce = bitcoin.proofOfWork(previousBlockHash, currentBlockData);
   const blockhash = bitcoin.hashBlock(previousBlockHash, currentBlockData, nounce);
  
