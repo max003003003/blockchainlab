@@ -1,4 +1,4 @@
-const Blockchain = require('./blockchain.js');
+const Blockchain = require('../../dev/blockchain.js');
 const bitcoin = new Blockchain();
 const bc1 = {
   "chain": [
@@ -249,4 +249,9 @@ const bc1 = {
   "http://localhost:3005"
   ]
   }
-console.log('VALID : ', bitcoin.chainIsValid(bc1.chain))
+describe("hash block",() => {
+    it("valid hash block", async() => {       
+       const output = await bitcoin.chainIsValid(bc1.chain)
+       expect( output ).toBe(true)
+    })
+});
