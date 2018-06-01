@@ -51,18 +51,18 @@ describe("proof of work", () => {
 })
 
 describe("hash block", () => {
-  it("should hash block", async()=>{
+  it("should hash block", async () => {
     const currentBlockData = { transactions: [], index: 2 };
-    const hash = await bitcoin.hashBlock("0", currentBlockData, 0)   
+    const hash = await bitcoin.hashBlock("0", currentBlockData, 0)
     expect(hash).toBe("9d858973998eb5bd6cb8e97fbd6bf5eaa5ebe501aa00eb01e1e35d96bc731ccd")
-  }) 
+  })
 })
 
 describe("addTransactionToPendingTransaction", () => {
-  it("should addTransactionToPendingTransaction", async()=>{
+  it("should addTransactionToPendingTransaction", async () => {
     let bitcoin = new Blockchain;
     bitcoin.pendingTransaction.push = jest.fn(bitcoin.pendingTransaction.push);
-    const before = bitcoin.pendingTransaction.length;   
+    const before = bitcoin.pendingTransaction.length;
     const hash = await bitcoin.addTransactionToPendingTransaction(
       {
         amount: 12.5,
@@ -70,50 +70,50 @@ describe("addTransactionToPendingTransaction", () => {
         recipient: undefined,
         transactionId: '2a932c20657411e895dc97addaced53b'
       }
-    )   
+    )
     expect(bitcoin.pendingTransaction.length).toBe(before + 1)
     expect(bitcoin.pendingTransaction.push).toHaveBeenCalled();
-  }) 
+  })
 })
 
 describe("createNewTransaction", () => {
-  it("should createNewTransaction", async()=>{   
-    const transaction = await bitcoin.createNewTransaction(      
-           11,
-         "ASDJFODFIEF0FLEKFJE0FLD",
-         "LHDLFJKFLSJFD:FJKDFJSF"     
-      
-    )   
-    
+  it("should createNewTransaction", async () => {
+    const transaction = await bitcoin.createNewTransaction(
+      11,
+      "ASDJFODFIEF0FLEKFJE0FLD",
+      "LHDLFJKFLSJFD:FJKDFJSF"
+
+    )
+
     expect(transaction.amount).toBe(11)
     expect(transaction.sender).toBe("ASDJFODFIEF0FLEKFJE0FLD")
     expect(transaction.recipient).toBe("LHDLFJKFLSJFD:FJKDFJSF")
-  }) 
+  })
 })
 
 describe("getLastBlock", () => {
-  it("should getLastBlock", async()=>{
-    let bitcoin = new Blockchain();    
-    const lastBlock = await bitcoin.getLastBlock() 
+  it("should getLastBlock", async () => {
+    let bitcoin = new Blockchain();
+    const lastBlock = await bitcoin.getLastBlock()
     expect(lastBlock).toBe(bitcoin.chain[0])
-  }) 
+  })
 })
 
 describe("createNewBlock", () => {
-  it("should create New Block", async()=>{
+  it("should create New Block", async () => {
     let bitcoin = new Blockchain();
     bitcoin.chain.push = jest.fn(bitcoin.chain.push)
-    const lastBlock = await bitcoin.createNewBlock(1,"0","0")
+    const lastBlock = await bitcoin.createNewBlock(1, "0", "0")
     expect(bitcoin.pendingTransaction.length).toBe(0)
     expect(bitcoin.chain.push).toHaveBeenCalled()
     expect(bitcoin).not.toBe(null);
     expect(lastBlock).toEqual(expect.objectContaining({
       index: expect.any(Number),
       timestamp: expect.any(Number),
-      transactions:  expect.any(Array),
+      transactions: expect.any(Array),
       nouce: expect.any(Number),
       hash: expect.any(String),
-      previousBlockHash:expect.any(String)
+      previousBlockHash: expect.any(String)
     }));
-  }) 
+  })
 })
