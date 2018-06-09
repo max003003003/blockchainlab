@@ -185,6 +185,46 @@ app.post("/regist-allnode", async (req,res)=>{
   })
 })
 
+app.get('/consensus',async(req,res) =>{
+  let requestPromises = []
+  bitcoin.networkNodes.map(networkNodeUrl =>{
+    const requestOptions = {
+      uri: networkNodeUrl + '/blockchain',
+      method: 'GET',
+      json: true
+    };
+   requestPromises.push(rp(requestOptions))
+  })
+  
+      const blockchains =  await Promise.all(requestPromises)        
+      const currentChainLength = bitcoin.chain.length;
+      let maxChainLength = currentChainLength;
+      let newLongestChain = null;
+      let newPendingTransactions = null;
+       
+      blockchains.map(blockchain => {     
+         if(blockchain.chain.length > maxChainLength ){
+           maxChainLength = blockchain.chain.length;
+           newLongestChain = blockchain.chain;
+           newPendingTransactions = blockchain.pendingTransaction;
+         }        
+      })  
+      if(!newLongestChain || ( newLongestChain && !bitcoin.chainIsValid(newLongestChain))){
+        res.json({
+          note: 'Current chain has not been replaced.',
+          chain: bitcoin.chain
+        })
+      }
+      else if(newLongestChain && bitcoin.chainIsValid(newLongestChain)) {
+        bitcoin.chain = newLongestChain;
+        bitcoin.pendingTransaction = newPendingTransactions;
+        res.json({
+          note: 'This chain has been replace',
+          chain: bitcoin.chain
+        })
+    }
+})
+
 app.listen(port, ()=>{
   console.log(`Listening on port ${port} ...`)
 })
