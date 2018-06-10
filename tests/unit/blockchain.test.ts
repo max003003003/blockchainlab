@@ -1,17 +1,18 @@
-import Blockchain from "../../src/blockchain" 
-import MockBitcoin  from "./mockbitcoint"
-const bitcoin = new Blockchain()
+import Blockchain from "../../src/blockchain";
+import Transaction from "../../src/model/Transaction";
+import MockBitcoin from "./mockbitcoint";
+const bitcoin = new Blockchain();
 const Mock = new MockBitcoin();
-describe('valid hash block', () => {
-  it('valid hash block', async () => {
-    let bitcoin = new Blockchain()
-    bitcoin.hashBlock = jest.fn(bitcoin.hashBlock)
-    const output = await bitcoin.chainIsValid(Mock.bc1)
-    expect(output).toBe(true)
-    expect(bitcoin.hashBlock).toHaveBeenCalled()
-  })
+describe("valid hash block", () => {
+  it("valid hash block", async () => {
+    const bitcoin = new Blockchain();
+    bitcoin.hashBlock = jest.fn(bitcoin.hashBlock);
+    const output = await bitcoin.chainIsValid(Mock.bc1);
+    expect(output).toBe(true);
+    expect(bitcoin.hashBlock).toHaveBeenCalled();
+  });
 
-  it('Invalid hash block', async () => {
+ it('Invalid hash block', async () => {
     let bitcoin = new Blockchain()
     bitcoin.hashBlock = jest.fn(bitcoin.hashBlock)
     const output = await bitcoin.chainIsValid(Mock.bc2)
@@ -61,8 +62,15 @@ describe('addTransactionToPendingTransaction', () => {
   it('should addTransactionToPendingTransaction', async () => {
     let bitcoin = new Blockchain()
     bitcoin.pendingTransaction.push = jest.fn(bitcoin.pendingTransaction.push)
+    const transaction  = new Transaction(
+      10,
+      "hfsldjfldsf",
+      "jdsfkljfdkfds",
+      "disfeir8jfkshk"
+    );
+    bitcoin.addTransactionToPendingTransaction(transaction);
     const before = bitcoin.pendingTransaction.length
-    expect(bitcoin.pendingTransaction).toHaveLength(before + 1)
+    expect(bitcoin.pendingTransaction.length).toBe(1)
     expect(bitcoin.pendingTransaction.push).toHaveBeenCalled()
   })
 })
@@ -83,7 +91,7 @@ describe('createNewTransaction', () => {
 })
 
 describe('getLastBlock', () => {
-  it('should getLastBlock', async () => {
+ it('should getLastBlock', async () => {
     let bitcoin = new Blockchain()
     const lastBlock = await bitcoin.getLastBlock()
     expect(lastBlock).toBe(bitcoin.chain[0])

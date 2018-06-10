@@ -3,6 +3,10 @@
     "extends": [
         "tslint:recommended"
     ],
+    "plugins": [
+        "jest"
+    ],
+    "member-ordering": [false],
     "jsRules": {},
     "rules": {},
     "rulesDirectory": []

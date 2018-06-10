@@ -1,27 +1,23 @@
+import Block from "./model/Block";
+import Transaction from "./model/Transaction";
 declare class Blockchain {
-    chain: any[];
-    pendingTransaction: any[];
+    chain: Block[];
+    pendingTransaction: Transaction[];
     currentNodeUrl: string;
-    networkNodes: any[];
+    networkNodes: string[];
     constructor();
-    createNewBlock(nouce: any, previousBlockHash: any, hash: any): {
+    createNewBlock(nouce: number, previousBlockHash: string, hash: string): Block;
+    getLastBlock(): Block;
+    createNewTransaction(amount: number, sender: string, recipient: string): Transaction;
+    addTransactionToPendingTransaction(transaction: Transaction): number;
+    hashBlock(previousBlockHash: string, currentBlockData: {
         index: number;
-        timestamp: number;
-        transactions: any[];
-        nouce: any;
-        hash: any;
-        previousBlockHash: any;
-    };
-    getLastBlock(): any;
-    createNewTransaction(amount: any, sender: any, recipient: any): {
-        amount: any;
-        sender: any;
-        recipient: any;
-        transactionId: any;
-    };
-    addTransactionToPendingTransaction(transactionObj: any): any;
-    hashBlock(previousBlockHash: any, currentBlockData: any, nonce: any): any;
-    proofOfWork(previousBlockHash: any, currentBlockData: any): number;
-    chainIsValid(blockchain: any): boolean;
+        transactions: Transaction[];
+    }, nonce: number): string;
+    proofOfWork(previousBlockHash: string, currentBlockData: {
+        index: number;
+        transactions: Transaction[];
+    }): number;
+    chainIsValid(blockchain: Blockchain): boolean;
 }
 export default Blockchain;
