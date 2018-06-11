@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var Transaction = /** @class */ (function () {
+var Transaction = (function () {
     function Transaction(amount, sender, recipient, transactionId) {
         this.amount = amount;
         this.sender = sender;
@@ -10,3 +10,4 @@ var Transaction = /** @class */ (function () {
     return Transaction;
 }());
 exports.default = Transaction;
+//# sourceMappingURL=Transaction.js.map

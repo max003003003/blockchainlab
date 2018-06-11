@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var Block = /** @class */ (function () {
+var Block = (function () {
     function Block(index, timestamp, transaction, nouce, hash, previousBlockHash) {
         this.index = index;
         this.timestamp = timestamp;
@@ -12,3 +12,4 @@ var Block = /** @class */ (function () {
     return Block;
 }());
 exports.default = Block;
+//# sourceMappingURL=Block.js.map

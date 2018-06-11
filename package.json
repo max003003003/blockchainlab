@@ -14,11 +14,11 @@
     "build-ts": "tsc",
     "coverage": "jest --forceExit --verbose --coverage",
     "coverage-upload": "jest --verbose --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
-    "node_1": "nodemon --watch dev -e js dist/server.js 3001 http://localhost:3001",
-    "node_2": "nodemon --watch dev -e js dist/server.js 3002 http://localhost:3002",
-    "node_3": "nodemon --watch dev -e js dist/server.js 3003 http://localhost:3003",
-    "node_4": "nodemon --watch dev -e js dist/server.js 3004 http://localhost:3004",
-    "node_5": "nodemon --watch dev -e js dist/server.js 3005 http://localhost:3005"
+    "node_1": "npm run build && nodemon --watch dev -e js dist/server.js 3001 http://localhost:3001",
+    "node_2": "npm run build && nodemon --watch dev -e js dist/server.js 3002 http://localhost:3002",
+    "node_3": "npm run build && nodemon --watch dev -e js dist/server.js 3003 http://localhost:3003",
+    "node_4": "npm run build && nodemon --watch dev -e js dist/server.js 3004 http://localhost:3004",
+    "node_5": "npm run build && nodemon --watch dev -e js dist/server.js 3005 http://localhost:3005"
   },
   "author": "",
   "license": "ISC",

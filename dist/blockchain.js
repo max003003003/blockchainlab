@@ -8,7 +8,7 @@ var uuid_1 = __importDefault(require("uuid"));
 var Block_1 = __importDefault(require("./models/Block"));
 var Transaction_1 = __importDefault(require("./models/Transaction"));
 var currentNodeUrl = process.argv[3];
-var Blockchain = /** @class */ (function () {
+var Blockchain = (function () {
     function Blockchain() {
         this.chain = [];
         this.pendingTransaction = [];
@@ -19,7 +19,7 @@ var Blockchain = /** @class */ (function () {
     }
     Blockchain.prototype.createNewBlock = function (nouce, previousBlockHash, hash) {
         var newBlock = new Block_1.default(this.chain.length + 1, Date.now(), this.pendingTransaction, nouce, hash, previousBlockHash);
-        this.pendingTransaction = []; // clear  transaction
+        this.pendingTransaction = [];
         this.chain.push(newBlock);
         return newBlock;
     };
@@ -77,3 +77,4 @@ var Blockchain = /** @class */ (function () {
     return Blockchain;
 }());
 exports.default = Blockchain;
+//# sourceMappingURL=blockchain.js.map
