@@ -1,7 +1,7 @@
 import CryptoJS from "crypto-js";
 import uuid from "uuid";
-import Block from "./model/Block";
-import Transaction from "./model/Transaction";
+import Block from "./models/Block";
+import Transaction from "./models/Transaction";
 const currentNodeUrl = process.argv[3];
 class Blockchain {
   public chain: Block[];

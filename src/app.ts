@@ -1,11 +1,11 @@
 import bodyParser from "body-parser";
 import express from "express";
-import * as BitcoinController from "./controllers/blockchain";
+import * as BitcoinController from "./controllers/blockchainController";
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.get("/blockchain", BitcoinController.getBitCoint);
-
+export default app;
 // // create new transaction to blockchain
 // app.post("/transaction", (req, res) => {
 //   const newTransaction = req.body
@@ -212,4 +212,4 @@ app.get("/blockchain", BitcoinController.getBitCoint);
 //     })
 //   }
 // });
-export default app;
+

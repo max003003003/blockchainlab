@@ -1,10 +1,11 @@
-import Block from "./model/Block";
-import Transaction from "./model/Transaction";
+import Block from "./models/Block";
+import Transaction from "./models/Transaction";
 declare class Blockchain {
     chain: Block[];
     pendingTransaction: Transaction[];
     currentNodeUrl: string;
     networkNodes: string[];
+    nodeAddress: string;
     constructor();
     createNewBlock(nouce: number, previousBlockHash: string, hash: string): Block;
     getLastBlock(): Block;

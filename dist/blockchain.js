@@ -5,8 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var crypto_js_1 = __importDefault(require("crypto-js"));
 var uuid_1 = __importDefault(require("uuid"));
-var Block_1 = __importDefault(require("./model/Block"));
-var Transaction_1 = __importDefault(require("./model/Transaction"));
+var Block_1 = __importDefault(require("./models/Block"));
+var Transaction_1 = __importDefault(require("./models/Transaction"));
 var currentNodeUrl = process.argv[3];
 var Blockchain = /** @class */ (function () {
     function Blockchain() {
@@ -15,6 +15,7 @@ var Blockchain = /** @class */ (function () {
         this.currentNodeUrl = currentNodeUrl;
         this.networkNodes = [];
         this.createNewBlock(100, "0", "0");
+        this.nodeAddress = uuid_1.default().split("-").join("");
     }
     Blockchain.prototype.createNewBlock = function (nouce, previousBlockHash, hash) {
         var newBlock = new Block_1.default(this.chain.length + 1, Date.now(), this.pendingTransaction, nouce, hash, previousBlockHash);
