@@ -1,5 +1,5 @@
 import Blockchain from "../../src/blockchain";
-import Transaction from "../../src/model/Transaction";
+import Transaction from "../../src/models/Transaction";
 import MockBitcoin from "./mockbitcoint";
 const bitcoin = new Blockchain();
 const Mock = new MockBitcoin();
