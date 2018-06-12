@@ -3,14 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "start": "npm run serve",
-    "serve": "nodemon dist/server.js",
-    "all": "npm run node_1 && npm run node_2",
+  "scripts": {   
+    "serve": "nodemon --watch dev -e js dist/server.js",
+    "nsp" : "nsp check --reporter summary",
     "test": "jest",
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "build": "rimraf dist/* && npm run lint && npm run build-ts",
-    "build-test": "tsc",
     "build-ts": "tsc",
     "coverage": "jest --forceExit --verbose --coverage",
     "coverage-upload": "jest --verbose --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
