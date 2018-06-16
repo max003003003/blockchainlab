@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {   
+  "scripts": {
     "serve": "nodemon --watch dev -e js dist/server.js",
-    "nsp" : "nsp check --reporter summary",
+    "nsp": "nsp check --reporter summary",
     "test": "jest",
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "build": "rimraf dist/* && npm run lint && npm run build-ts",

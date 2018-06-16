@@ -5,6 +5,9 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.get("/blockchain", BitcoinController.getBitCoint);
+app.post("/register-and-broadcast-node", BitcoinController.registerAndBroadcastNode);
+app.post("/register-node", BitcoinController.registerNode);
+app.post("/register-nodes-bulk", BitcoinController.registerNodesBulk);
 export default app;
 // // create new transaction to blockchain
 // app.post("/transaction", (req, res) => {

@@ -52,60 +52,61 @@ export let getMine = async (req: Request, res: Response) => {
         note: "New block mined successfully",
        });
 };
-// // register a node a broadcast it the network
-// app.post('/register-add-broadcast-node', async (req, res) => {
-//     const newNodeUrl = req.body.newNodeUrl
-//     if (bitcoin.networkNodes.indexOf(newNodeUrl) === -1) {
-//         bitcoin.networkNodes.push(newNodeUrl)
-//     }
-//     const regNodesPromise = []
-//     bitcoin.networkNodes.map(networkNodeUrl => {
-//         // register node endpoint
-//         const requestOptions = {
-//             uri: networkNodeUrl + '/register-node',
-//             method: 'POST',
-//             body: { newNodeUrl: newNodeUrl },
-//             json: true
-//         }
-//         regNodesPromise.push(rp(requestOptions))
-//     })
+// register a node a broadcast it the network
+export let registerAndBroadcastNode = async (req: Request , res: Response) => {
+    const newNodeUrl = req.body.newNodeUrl;
+    if (bitcoin.networkNodes.indexOf(newNodeUrl) === -1) {
+        bitcoin.networkNodes.push(newNodeUrl);
+    }
+    const regNodesPromise: any[] = [];
 
-//     await Promise.all(regNodesPromise)
-//     const bulkRegisterOptions = {
-//         uri: newNodeUrl + '/register-nodes-bulk',
-//         method: 'POST',
-//         body: {
-//             allnetworkNodes: [...bitcoin.networkNodes, bitcoin.currentNodeUrl]
-//         },
-//         json: true
-//     }
-//     await rp(bulkRegisterOptions)
-//     res.json({
-//         note: 'New node registered with network successfully.'
-//     })
-// })
-// // register a node with network
-// app.post('/register-node', (req, res) => {
-//     const newNodeUrl = req.body.newNodeUrl
-//     const nodeNotAlreadyPresent = bitcoin.networkNodes.indexOf(newNodeUrl) === -1
-//     const notCurrentNode = bitcoin.currentNodeUrl !== newNodeUrl
-//     if (nodeNotAlreadyPresent && notCurrentNode) { bitcoin.networkNodes.push(newNodeUrl) }
-//     res.json({
-//         notes: 'New node registered successfully'
-//     })
-// })
-// //
-// app.post('/register-nodes-bulk', (req, res) => {
-//     const allNetworkNodes = req.body.allnetworkNodes // all url
-//     allNetworkNodes.map(networkNodeUrl => {
-//         const nodeNotAlreadyPresent = bitcoin.networkNodes.indexOf(networkNodeUrl) === -1
-//         const notCurrentNode = bitcoin.currentNodeUrl !== networkNodeUrl
-//         if (nodeNotAlreadyPresent && notCurrentNode) { bitcoin.networkNodes.push(networkNodeUrl) }
-//     })
-//     res.json({
-//         note: 'Bulk registration successful.'
-//     })
-// })
+    bitcoin.networkNodes.map((networkNodeUrl) => {
+        // register node endpoint
+        const requestOptions = {
+            body: { newNodeUrl },
+            json: true,
+            method: "POST",
+            uri: networkNodeUrl + "/register-node",
+        };
+        regNodesPromise.push(rp(requestOptions));
+    });
+
+    await Promise.all(regNodesPromise);
+    const bulkRegisterOptions = {
+        body: {
+            allnetworkNodes: [...bitcoin.networkNodes, bitcoin.currentNodeUrl]
+        },
+        json: true,
+        method: "POST",
+        uri: newNodeUrl + "/register-nodes-bulk",
+    };
+    await rp(bulkRegisterOptions);
+    res.json({
+        note: "New node registered with network successfully.",
+    });
+};
+// register a node with network
+export let registerNode = async (req: Request, res: Response) => {
+    const newNodeUrl = req.body.newNodeUrl;
+    const nodeNotAlreadyPresent = bitcoin.networkNodes.indexOf(newNodeUrl) === -1;
+    const notCurrentNode = bitcoin.currentNodeUrl !== newNodeUrl;
+    if (nodeNotAlreadyPresent && notCurrentNode) { bitcoin.networkNodes.push(newNodeUrl); }
+    res.json({
+        notes: "New node registered successfully",
+    });
+};
+//
+export let registerNodesBulk = async (req: Request, res: Response) => {
+    const allNetworkNodes: string[] = req.body.allnetworkNodes; // all url
+    allNetworkNodes.map((networkNodeUrl) => {
+        const nodeNotAlreadyPresent = bitcoin.networkNodes.indexOf(networkNodeUrl) === -1;
+        const notCurrentNode = bitcoin.currentNodeUrl !== networkNodeUrl;
+        if (nodeNotAlreadyPresent && notCurrentNode) { bitcoin.networkNodes.push(networkNodeUrl); }
+    });
+    res.json({
+        note: "Bulk registration successful.",
+    });
+};
 
 // app.post('/transaction/broadcast', async (req, res) => {
 //     const newTransaction = bitcoin.createNewTransaction(
