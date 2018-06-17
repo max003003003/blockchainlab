@@ -1,12 +1,13 @@
 import { Request, Response } from "express";
 import rp from "request-promise";
 import BlockChain from "../blockchain";
+import Transaction from "../models/Transaction";
 const bitcoin = new BlockChain();
 export let getBitCoint = (req: Request, res: Response) => {
     res.send(bitcoin);
 };
 // create new transaction to blockchain
-export let postTransaction = (req: Request, res: Response) => {
+export let addTransaction = (req: Request, res: Response) => {
     const newTransaction = req.body;
     const blockIndex = bitcoin.addTransactionToPendingTransaction(newTransaction);
     res.json({
@@ -14,7 +15,7 @@ export let postTransaction = (req: Request, res: Response) => {
     });
 };
 // mine a block
-export let getMine = async (req: Request, res: Response) => {
+export let mine = async (req: Request, res: Response) => {
     const lastBlock = bitcoin.getLastBlock();
     const previousBlockHash = lastBlock.hash;
     const currentBlockData = {
@@ -59,7 +60,6 @@ export let registerAndBroadcastNode = async (req: Request , res: Response) => {
         bitcoin.networkNodes.push(newNodeUrl);
     }
     const regNodesPromise: any[] = [];
-
     bitcoin.networkNodes.map((networkNodeUrl) => {
         // register node endpoint
         const requestOptions = {
@@ -74,7 +74,7 @@ export let registerAndBroadcastNode = async (req: Request , res: Response) => {
     await Promise.all(regNodesPromise);
     const bulkRegisterOptions = {
         body: {
-            allnetworkNodes: [...bitcoin.networkNodes, bitcoin.currentNodeUrl]
+            allnetworkNodes: [...bitcoin.networkNodes, bitcoin.currentNodeUrl],
         },
         json: true,
         method: "POST",
@@ -108,103 +108,104 @@ export let registerNodesBulk = async (req: Request, res: Response) => {
     });
 };
 
-// app.post('/transaction/broadcast', async (req, res) => {
-//     const newTransaction = bitcoin.createNewTransaction(
-//         req.body.amount,
-//         req.body.sender,
-//         req.body.recipient
-//     )
-//     const requestPromise = []
-//     bitcoin.addTransactionToPendingTransaction(newTransaction)
-//     bitcoin.networkNodes.map(networkNodeUrl => {
-//         const requestOptions = {
-//             uri: networkNodeUrl + '/transaction',
-//             method: 'POST',
-//             body: newTransaction,
-//             json: true
-//         }
-//         requestPromise.push(rp(requestOptions))
-//     })
-//     await Promise.all(requestPromise)
-//     res.send({
-//         note: 'Transaction created and broadcast successfully.'
-//     })
-// })
-// app.post('/receive-new-block', async (req, res) => {
-//     const newBlock = req.body.newBlock
-//     const lastBlock = bitcoin.getLastBlock()
-//     const correctHash = lastBlock.hash === newBlock.previousBlockHash
-//     const correctIndex = lastBlock['index'] + 1 === newBlock['index']
-//     if (correctHash && correctIndex) {
-//         bitcoin.chain.push(newBlock)
-//         bitcoin.pendingTransaction = []
-//         res.json({
-//             note: 'New block received and accepted',
-//             newBlock: newBlock
-//         })
-//     } else {
-//         res.json({
-//             note: 'New block rejected',
-//             newBlock: newBlock
-//         })
-//     }
-// })
+export let transactionBroadcast =  async (req: Request, res: Response) => {
+    const newTransaction = bitcoin.createNewTransaction(
+        req.body.amount,
+        req.body.sender,
+        req.body.recipient,
+    );
+    const requestPromise: any[] = [];
+    bitcoin.addTransactionToPendingTransaction(newTransaction);
+    bitcoin.networkNodes.map((networkNodeUrl) => {
+        const requestOptions = {
+            body: newTransaction,
+            json: true,
+            method: "POST",
+            uri: networkNodeUrl + "/transaction",
+        };
+        requestPromise.push(rp(requestOptions));
+    });
+    await Promise.all(requestPromise);
+    res.send({
+        note: "Transaction created and broadcast successfully.",
+    });
+};
 
-// app.post('/regist-allnode', async (req, res) => {
-//     const nodeurls = req.body.nodeurls
-//     const requestPromise = []
-//     nodeurls.map(nodeurl => {
-//         const requestOptions = {
-//             uri: bitcoin.currentNodeUrl + '/register-add-broadcast-node',
-//             method: 'POST',
-//             body: {
-//                 newNodeUrl: nodeurl
-//             },
-//             json: true
-//         }
-//         requestPromise.push(rp(requestOptions))
-//     })
-//     await Promise.all(requestPromise)
-//     res.send({
-//         note: 'Regist all node succesful'
-//     })
-// })
+export let recieveNewBlock = async (req: Request, res: Response) => {
+    const newBlock = req.body.newBlock;
+    const lastBlock = bitcoin.getLastBlock();
+    const correctHash = lastBlock.hash === newBlock.previousBlockHash;
+    const correctIndex = lastBlock.index + 1 === newBlock.index;
+    if (correctHash && correctIndex) {
+        bitcoin.chain.push(newBlock);
+        bitcoin.pendingTransaction = [];
+        res.json({
+            newBlock,
+            note: "New block received and accepted",
+        });
+    } else {
+        res.json({
+          newBlock,
+          note: "New block rejected",
+        });
+    }
+};
+export let registAllNode =  async (req: Request , res: Response) => {
+    const nodeurls: string[] = req.body.nodeurls;
+    const requestPromise: any[]  = [];
+    nodeurls.map((nodeurl: any) => {
+        const requestOptions = {
+            body: {
+                newNodeUrl: nodeurl,
+            },
+            json: true,
+            method: "POST",
+            uri: bitcoin.currentNodeUrl + "/register-and-broadcast-node",
+        };
+        requestPromise.push(rp(requestOptions));
+    });
+    await Promise.all(requestPromise);
+    res.send({
+        note: "Regist all node succesful",
+    });
+};
 
-// app.get('/consensus', async (req, res) => {
-//     let requestPromises = []
-//     bitcoin.networkNodes.map(networkNodeUrl => {
-//         const requestOptions = {
-//             uri: networkNodeUrl + '/blockchain',
-//             method: 'GET',
-//             json: true
-//         }
-//         requestPromises.push(rp(requestOptions))
-//     })
+export let consensus = async (req: Request, res: Response) => {
+    const requestPromises: any[] =  [];
+    bitcoin.networkNodes.map((networkNodeUrl) => {
+        const requestOptions = {
+            json: true,
+            method: "GET",
+            uri: networkNodeUrl + "/blockchain",
+        };
+        requestPromises.push(rp(requestOptions));
+    });
+    const blockchains = await Promise.all(requestPromises);
+    const currentChainLength = bitcoin.chain.length;
+    let maxChainLength = currentChainLength;
+    let newLongestChain;
+    let newPendingTransactions: Transaction[]  = [];
+    blockchains.map((blockchain) => {
 
-//     const blockchains = await Promise.all(requestPromises)
-//     const currentChainLength = bitcoin.chain.length
-//     let maxChainLength = currentChainLength
-//     let newLongestChain = null
-//     let newPendingTransactions = null
+        if (blockchain.chain.length > maxChainLength) {
+            maxChainLength = blockchain.chain.length;
+            newLongestChain = blockchain;
+            newPendingTransactions = blockchain.pendingTransaction;
+        }
+    });
 
-//     blockchains.map(blockchain => {
-//         if (blockchain.chain.length > maxChainLength) {
-//             maxChainLength = blockchain.chain.length
-//             newLongestChain = blockchain.chain
-//             newPendingTransactions = blockchain.pendingTransaction
-//         }
-//     })
-//     if (!newLongestChain || (newLongestChain && !bitcoin.chainIsValid(newLongestChain))) {
-//         res.json({
-//             note: 'Current chain has not been replaced.',
-//             chain: bitcoin.chain
-//         })
-//     } else if (newLongestChain && bitcoin.chainIsValid(newLongestChain)) {
-//         bitcoin.chain = newLongestChain
-//         bitcoin.pendingTransaction = newPendingTransactions
-//         res.json({
-//             note: 'This chain has been replace',
-//             chain: bitcoin.chain
-//         })
-//     }
-// })
+    if (!newLongestChain || (newLongestChain && !bitcoin.chainIsValid(newLongestChain))) {
+        res.json({
+            chain: bitcoin.chain,
+            note: "Current chain has not been replaced.",
+        });
+    } else if (newLongestChain && bitcoin.chainIsValid(newLongestChain)) {
+        bitcoin.chain = newLongestChain;
+        bitcoin.pendingTransaction = newPendingTransactions;
+        res.json({
+            chain: bitcoin.chain,
+            note: "This chain has been replace",
+        });
+    }
+
+};

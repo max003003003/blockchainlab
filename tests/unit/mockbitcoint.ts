@@ -1,498 +1,204 @@
-import Blockchain from "../../src/blockchain";
-import blockchain from "../../src/blockchain";
-import Block from "../../src/model/Block";
 class MockBitcoin {
   public bc1;
   public bc2;
   constructor() {
     this.bc1 = {
-      chain: [
-        {
-          index: 1,
-          timestamp: 1527760655557,
-          transactions: [],
-          nouce: 100,
-          hash: "0",
-          previousBlockHash: "0",
-        },
-        {
-          index: 2,
-          timestamp: 1527760681396,
-          transactions: [
-            {
-              amount: 10,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "104cdc0064b911e88c6d8fa0f260362f",
-            },
-            {
-              amount: 1,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "11de788064b911e88c6d8fa0f260362f",
-            },
-            {
-              amount: 2,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "133f8f2064b911e88c6d8fa0f260362f",
-            },
-            {
-              amount: 12,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "147b1c6064b911e88c6d8fa0f260362f",
-            },
-          ],
-          nouce: 58203,
-          hash: "0000c3eba84f61969a708cfc99142f11549f29fce1f29e44c053951e9b7c13c8",
-          previousBlockHash: "0",
-        },
-        {
-          index: 3,
-          timestamp: 1527760693266,
-          transactions: [
-            {
-              amount: 12.5,
-              sender: "00",
-              transactionId: "1ab4e43064b911e89520774a90ef822e",
-            },
-            {
-              amount: 12,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "1c0c36d064b911e88c6d8fa0f260362f",
-            },
-            {
-              amount: 12,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "1c320e5064b911e88c6d8fa0f260362f",
-            },
-            {
-              amount: 12,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "1c76916064b911e88c6d8fa0f260362f",
-            },
-            {
-              amount: 12,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "1c9a942064b911e88c6d8fa0f260362f",
-            },
-            {
-              amount: 12,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "1cbac65064b911e88c6d8fa0f260362f",
-            },
-            {
-              amount: 12,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "1ce2c0b064b911e88c6d8fa0f260362f",
-            },
-          ],
-          nouce: 130110,
-          hash: "0000ab426d94588b0a237d7c31832e0ecccee7d4dbf922ae2d08b0df786c75fc",
-          previousBlockHash: "0000c3eba84f61969a708cfc99142f11549f29fce1f29e44c053951e9b7c13c8",
-        },
-        {
-          index: 4,
-          timestamp: 1527760700899,
-          transactions: [
-            {
-              amount: 12,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "1ee2614064b911e88c6d8fa0f260362f",
-            },
-            {
-              amount: 12.5,
-              sender: "00",
-              transactionId: "21c3883064b911e89520774a90ef822e",
-            },
-            {
-              amount: 12,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "230caa0064b911e88c6d8fa0f260362f",
-            },
-            {
-              amount: 12,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "2336792064b911e88c6d8fa0f260362f",
-            },
-            {
-              amount: 12,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "23824f3064b911e88c6d8fa0f260362f",
-            },
-            {
-              amount: 12,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "23c1a22064b911e88c6d8fa0f260362f",
-            },
-          ],
-          nouce: 62252,
-          hash: "00002d20cc5ca9801a8adfe666c4d863fdaf5664a24f678ce44ca9ac45924f6c",
-          previousBlockHash: "0000ab426d94588b0a237d7c31832e0ecccee7d4dbf922ae2d08b0df786c75fc",
-        },
-        {
-          index: 5,
-          timestamp: 1527760707103,
-          transactions: [
-            {
-              amount: 12.5,
-              sender: "00",
-              transactionId: "264e678064b911e89520774a90ef822e",
-            },
-            {
-              amount: 12,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "26c0ff7064b911e88c6d8fa0f260362f",
-            },
-            {
-              amount: 12,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "270f1f7064b911e88c6d8fa0f260362f",
-            },
-            {
-              amount: 12,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "274c4f8064b911e88c6d8fa0f260362f",
-            },
-          ],
-          nouce: 65738,
-          hash: "00003c618c99e5d49a4565b8cbe8820cb92972b81360208fae51ab39516bb50d",
-          previousBlockHash: "00002d20cc5ca9801a8adfe666c4d863fdaf5664a24f678ce44ca9ac45924f6c",
-        },
-        {
-          index: 6,
-          timestamp: 1527760713557,
-          transactions: [
-            {
-              amount: 12.5,
-              sender: "00",
-              transactionId: "2a00730064b911e89520774a90ef822e",
-            },
-            {
-              amount: 12,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "2a7099f064b911e88c6d8fa0f260362f",
-            },
-            {
-              amount: 12,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "2aab590064b911e88c6d8fa0f260362f",
-            },
-            {
-              amount: 12,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "2ae7ecd064b911e88c6d8fa0f260362f",
-            },
-          ],
-          nouce: 83456,
-          hash: "00005b2758f6e4dbc952aa8d5f064a602a8f694047aa4dbb70d2147e9d51ca33",
-          previousBlockHash: "00003c618c99e5d49a4565b8cbe8820cb92972b81360208fae51ab39516bb50d",
-        },
-        {
-          index: 7,
-          timestamp: 1527760720845,
-          transactions: [
-            {
-              amount: 12.5,
-              sender: "00",
-              transactionId: "2dd9dca064b911e89520774a90ef822e",
-            },
-            {
-              amount: 12,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "2f4db7f064b911e88c6d8fa0f260362f",
-            },
-            {
-              amount: 12,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "2f742bb064b911e88c6d8fa0f260362f",
-            },
-            {
-              amount: 12,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "2faceef064b911e88c6d8fa0f260362f",
-            },
-          ],
-          nouce: 60493,
-          hash: "0000680f88a6ccbeec90e7507eb10992a1468f0236b79ba478650b573c178098",
-          previousBlockHash: "00005b2758f6e4dbc952aa8d5f064a602a8f694047aa4dbb70d2147e9d51ca33",
-        },
+      "chain": [
+      {
+      "index": 1,
+      "timestamp": 1529218144573,
+      "transactions": [],
+      "nouce": 100,
+      "hash": "0",
+      "previousBlockHash": "0"
+      },
+      {
+      "index": 2,
+      "timestamp": 1529218371588,
+      "transactions": [
+      {
+      "amount": 5,
+      "sender": "ASDJFODFIEF0FLE23dtKFJEdf0FLD",
+      "recipient": "LHDLFJKFLSJFD:FJKDdfdfdfFJSF",
+      "transactionId": "4c74178adc514bf0acbf8ddcc74a7cc3"
+      },
+      {
+      "amount": 5,
+      "sender": "ASDJFODFIEF0FLE23dtKFJEdf0FLD",
+      "recipient": "LHDLFJKFLSJFD:FJKDdfdfdfFJSF",
+      "transactionId": "fb506edd67e749dfb2178bf86d1640c7"
+      }
       ],
-      pendingTransaction: [
-        {
-          amount: 12.5,
-          sender: "00",
-          transactionId: "3232d68064b911e89520774a90ef822e",
-        },
+      "nouce": 106262,
+      "hash": "00008bd636d99c9492ab018718785c1503d1d687c3636959e8139001a713a4ec",
+      "previousBlockHash": "0"
+      },
+      {
+      "index": 3,
+      "timestamp": 1529218426339,
+      "transactions": [
+      {
+      "amount": 12.5,
+      "sender": "00",
+      "recipient": "153af87a73f9467f9039a4d13c92faaa",
+      "transactionId": "f7b00045b9c04cf286daa07eb13a9235"
+      },
+      {
+      "amount": 5,
+      "sender": "ASDJFODFIEF0FLE23dtKFJEdf0FLD",
+      "recipient": "LHDLFJKFLSJFD:FJKDdfdfdfFJSF",
+      "transactionId": "c9beb9695f834347a6a68ffa170c82c4"
+      },
+      {
+      "amount": 5,
+      "sender": "ASDJFODFIEF0FLE23dtKFJEdf0FLD",
+      "recipient": "LHDLFJKFLSJFD:FJKDdfdfdfFJSF",
+      "transactionId": "c9beb9695f834347a6a68ffa170c82c4"
+      },
+      {
+      "amount": 5,
+      "sender": "ASDJFODFIEF0FLE23dtKFJEdf0FLD",
+      "recipient": "LHDLFJKFLSJFD:FJKDdfdfdfFJSF",
+      "transactionId": "4020e6b340ca40eaa5a13245d0f39e5f"
+      },
+      {
+      "amount": 5,
+      "sender": "ASDJFODFIEF0FLE23dtKFJEdf0FLD",
+      "recipient": "LHDLFJKFLSJFD:FJKDdfdfdfFJSF",
+      "transactionId": "4020e6b340ca40eaa5a13245d0f39e5f"
+      },
+      {
+      "amount": 12.5,
+      "sender": "00",
+      "recipient": "e43ea46c181f4b03a18187f5091d1729",
+      "transactionId": "af183d27f8c9418d86b58eb4cba674c1"
+      }
       ],
-      currentNodeUrl: "http://localhost:3001",
-      networkNodes: [
-        "http://localhost:3002",
-        "http://localhost:3003",
-        "http://localhost:3004",
-        "http://localhost:3005",
+      "nouce": 64601,
+      "hash": "0000779cd9a00764f2a36f99d35735e6038f947ad337db0ee1231facb6946d14",
+      "previousBlockHash": "00008bd636d99c9492ab018718785c1503d1d687c3636959e8139001a713a4ec"
+      }
       ],
-    };
-
+      "pendingTransaction": [
+      {
+      "amount": 12.5,
+      "sender": "00",
+      "recipient": "153af87a73f9467f9039a4d13c92faaa",
+      "transactionId": "a0883d3105d64a219ff0afee95ef54fe"
+      },
+      {
+      "amount": 12.5,
+      "sender": "00",
+      "recipient": "153af87a73f9467f9039a4d13c92faaa",
+      "transactionId": "a0883d3105d64a219ff0afee95ef54fe"
+      }
+      ],
+      "currentNodeUrl": "http://localhost:3001",
+      "networkNodes": [
+      "http://localhost:3001",
+      "http://localhost:3002",
+      "http://localhost:3003",
+      "http://localhost:3004",
+      "http://localhost:3005"
+      ],
+      "nodeAddress": "153af87a73f9467f9039a4d13c92faaa"
+      };
     this.bc2 = {
       chain: [
         {
-          index: 1,
-          timestamp: 1527760655557,
-          transactions: [],
-          nouce: 100,
           hash: "0",
+          index: 1,
+          nouce: 100,
           previousBlockHash: "0",
+          timestamp: 1529218144573,
+          transactions: [],
         },
         {
+          hash: "00008bd636d99c9492ab018718785c1503d1d687c3636959e8139001a713a4ec",
           index: 2,
-          timestamp: 1527760681396,
-          transactions: [
-            {
-              amount: 10,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "104cdc0064b911e88c6d8fa0f260362f",
-            },
-            {
-              amount: 1,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "11de788064b911e88c6d8fa0f260362f",
-            },
-            {
-              amount: 2,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "133f8f2064b911e88c6d8fa0f260362f",
-            },
-            {
-              amount: 12,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "147b1c6064b911e88c6d8fa0f260362f",
-            },
-          ],
-          nouce: 58203,
-          hash: "0000c3eba84f61969a708cfc99142f11549f29fce1f29e44c053951e9b7c13c8",
+          nouce: 106262,
           previousBlockHash: "0",
+          timestamp: 1529218371588,
+          transactions: [
+            {
+              amount: 5,
+              recipient: "LHDLFJKFLSJFD:FJKDdfdfdfFJSF",
+              sender: "ASDJFODFIEF0FLE23dtKFJEdf0FLD",
+              transactionId: "4c74178adc514bf0acbf8ddcc74a7cc3",
+            },
+            {
+              amount: 5,
+              recipient: "LHDLFJKFLSJFD:FJKDdfdfdfFJSF",
+              sender: "ASDJFODFIEF0FLE23dtKFJEdf0FLD",
+              transactionId: "fb506edd67e749dfb2178bf86d1640c7",
+            },
+          ],
         },
         {
+          hash: "0000779cd9a00764f2a36f99d35735e6038f947ad337db0ee1231facb6946d14",
           index: 3,
-          timestamp: 1527760693266,
+          nouce: 64601,
+          previousBlockHash: "00008bd636d99c9492ab018718785c1503d1d687c3636959e8139001a713a4ec",
+          timestamp: 1529218426339,
           transactions: [
             {
               amount: 12.5,
+              recipient: "153af87a73f9467f9039a4d13c92faaa",
               sender: "00",
-              transactionId: "1ab4e43064b911e89520774a90ef822e",
+              transactionId: "f7b00045b9c04cf286daa07eb13a9235",
             },
             {
-              amount: 12,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "1c76916064b911e88c6d8fa0f260362f",
+              amount: 5,
+              recipient: "LHDLFJKFLSJFD:FJKDdfdfdfFJSF",
+              sender: "ASDJFODFIEF0FLE23dtKFJEdf0FLD",
+              transactionId: "c9beb9695f834347a6a68ffa170c82c4",
             },
             {
-              amount: 12,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "1c9a942064b911e88c6d8fa0f260362f",
+              amount: 5,
+              recipient: "LHDLFJKFLSJFD:FJKDdfdfdfFJSF",
+              sender: "ASDJFODFIEF0FLE23dtKFJEdf0FLD",
+              transactionId: "c9beb9695f834347a6a68ffa170c82c4",
             },
             {
-              amount: 12,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "1cbac65064b911e88c6d8fa0f260362f",
+              amount: 5,
+              recipient: "LHDLFJKFLSJFD:FJKDdfdfdfFJSF",
+              sender: "ASDJFODFIEF0FLE23dtKFJEdf0FLD",
+              transactionId: "4020e6b340ca40eaa5a13245d0f39e5f",
             },
             {
-              amount: 12,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "1ce2c0b064b911e88c6d8fa0f260362f",
+              amount: 5,
+              recipient: "LHDLFJKFLSJFD:FJKDdfdfdfFJSF",
+              sender: "ASDJFODFIEF0FLE23dtKFJEdf0FLD",
+              transactionId: "4020e6b340ca40eaa5a13245d0f39e5f",
             },
+
           ],
-          nouce: 130110,
-          hash: "0000ab426d94588b0a237d7c31832e0ecccee7d4dbf922ae2d08b0df786c75fc",
-          previousBlockHash: "0000c3eba84f61969a708cfc99142f11549f29fce1f29e44c053951e9b7c13c8",
-        },
-        {
-          index: 4,
-          timestamp: 1527760700899,
-          transactions: [
-            {
-              amount: 12,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "1ee2614064b911e88c6d8fa0f260362f",
-            },
-            {
-              amount: 12.5,
-              sender: "00",
-              transactionId: "21c3883064b911e89520774a90ef822e",
-            },
-            {
-              amount: 12,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "230caa0064b911e88c6d8fa0f260362f",
-            },
-            {
-              amount: 12,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "2336792064b911e88c6d8fa0f260362f",
-            },
-            {
-              amount: 12,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "23824f3064b911e88c6d8fa0f260362f",
-            },
-            {
-              amount: 12,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "23c1a22064b911e88c6d8fa0f260362f",
-            },
-          ],
-          nouce: 62252,
-          hash: "00002d20cc5ca9801a8adfe666c4d863fdaf5664a24f678ce44ca9ac45924f6c",
-          previousBlockHash: "0000ab426d94588b0a237d7c31832e0ecccee7d4dbf922ae2d08b0df786c75fc",
-        },
-        {
-          index: 5,
-          timestamp: 1527760707103,
-          transactions: [
-            {
-              amount: 12.5,
-              sender: "00",
-              transactionId: "264e678064b911e89520774a90ef822e",
-            },
-            {
-              amount: 12,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "26c0ff7064b911e88c6d8fa0f260362f",
-            },
-            {
-              amount: 12,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "270f1f7064b911e88c6d8fa0f260362f",
-            },
-            {
-              amount: 12,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "274c4f8064b911e88c6d8fa0f260362f",
-            },
-          ],
-          nouce: 65738,
-          hash: "00003c618c99e5d49a4565b8cbe8820cb92972b81360208fae51ab39516bb50d",
-          previousBlockHash: "00002d20cc5ca9801a8adfe666c4d863fdaf5664a24f678ce44ca9ac45924f6c",
-        },
-        {
-          index: 6,
-          timestamp: 1527760713557,
-          transactions: [
-            {
-              amount: 12.5,
-              sender: "00",
-              transactionId: "2a00730064b911e89520774a90ef822e",
-            },
-            {
-              amount: 12,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "2a7099f064b911e88c6d8fa0f260362f",
-            },
-            {
-              amount: 12,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "2aab590064b911e88c6d8fa0f260362f",
-            },
-            {
-              amount: 12,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "2ae7ecd064b911e88c6d8fa0f260362f",
-            },
-          ],
-          nouce: 83456,
-          hash: "00005b2758f6e4dbc952aa8d5f064a602a8f694047aa4dbb70d2147e9d51ca33",
-          previousBlockHash: "00003c618c99e5d49a4565b8cbe8820cb92972b81360208fae51ab39516bb50d",
-        },
-        {
-          index: 7,
-          timestamp: 1527760720845,
-          transactions: [
-            {
-              amount: 12.5,
-              sender: "00",
-              transactionId: "2dd9dca064b911e89520774a90ef822e",
-            },
-            {
-              amount: 12,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "2f4db7f064b911e88c6d8fa0f260362f",
-            },
-            {
-              amount: 12,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "2f742bb064b911e88c6d8fa0f260362f",
-            },
-            {
-              amount: 12,
-              sender: "ASDJFODFIEF0FLEKFJE0FLD",
-              recipient: "LHDLFJKFLSJFD:FJKDFJSF",
-              transactionId: "2faceef064b911e88c6d8fa0f260362f",
-            },
-          ],
-          nouce: 60493,
-          hash: "0000680f88a6ccbeec90e7507eb10992a1468f0236b79ba478650b573c178098",
-          previousBlockHash: "00005b2758f6e4dbc952aa8d5f064a602a8f694047aa4dbb70d2147e9d51ca33",
-        },
-      ],
-      pendingTransaction: [
-        {
-          amount: 12.5,
-          sender: "00",
-          transactionId: "3232d68064b911e89520774a90ef822e",
         },
       ],
       currentNodeUrl: "http://localhost:3001",
       networkNodes: [
+        "http://localhost:3001",
         "http://localhost:3002",
         "http://localhost:3003",
         "http://localhost:3004",
         "http://localhost:3005",
       ],
+      nodeAddress : "153af87a73f9467f9039a4d13c92faaa",
+      pendingTransaction: [
+        {
+          amount: 12.5,
+          recipient: "153af87a73f9467f9039a4d13c92faaa",
+          sender: "00",
+          transactionId: "a0883d3105d64a219ff0afee95ef54fe",
+        },
+        {
+          amount: 12.5,
+          recipient: "153af87a73f9467f9039a4d13c92faaa",
+          sender: "00",
+          transactionId: "a0883d3105d64a219ff0afee95ef54fe",
+        },
+      ],
     };
-   
   }
 }
 

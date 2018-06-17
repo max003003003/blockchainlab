@@ -9,14 +9,16 @@
     "test": "jest",
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "build": "rimraf dist/* && npm run lint && npm run build-ts",
-    "build-ts": "tsc",
+    "build-test": "rimraf dist/* && npm run lint && npm run build-tsc-test",
+    "build-ts": "tsc --noEmit",
+    "build-tsc-test": "tsc",
     "coverage": "jest --forceExit --verbose --coverage",
     "coverage-upload": "jest --verbose --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
-    "node_1": "npm run build && nodemon --watch dev -e js dist/server.js 3001 http://localhost:3001",
-    "node_2": "npm run build && nodemon --watch dev -e js dist/server.js 3002 http://localhost:3002",
-    "node_3": "npm run build && nodemon --watch dev -e js dist/server.js 3003 http://localhost:3003",
-    "node_4": "npm run build && nodemon --watch dev -e js dist/server.js 3004 http://localhost:3004",
-    "node_5": "npm run build && nodemon --watch dev -e js dist/server.js 3005 http://localhost:3005"
+    "node_1": "nodemon -e ts -w ./src -x ts-node ./src/server.ts 3001 http://localhost:3001",
+    "node_2": "nodemon -e ts -w ./src -x ts-node ./src/server.ts 3002 http://localhost:3002",
+    "node_3": "nodemon -e ts -w ./src -x ts-node ./src/server.ts 3003 http://localhost:3003",
+    "node_4": "nodemon -e ts -w ./src -x ts-node ./src/server.ts 3004 http://localhost:3004",
+    "node_5": "nodemon -e ts -w ./src -x ts-node ./src/server.ts 3005 http://localhost:3005"
   },
   "author": "",
   "license": "ISC",
@@ -50,7 +52,7 @@
     "nodemon": "^1.13.0",
     "supertest": "^3.0.0",
     "ts-jest": "^22.0.4",
-    "ts-node": "^6.1.0",
+    "ts-node": "^6.1.1",
     "tslint": "^5.10.0",
     "typescript": "^2.7.2"
   }
