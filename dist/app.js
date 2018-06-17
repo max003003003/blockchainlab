@@ -17,5 +17,12 @@ var app = express_1.default();
 app.use(body_parser_1.default.json());
 app.use(body_parser_1.default.urlencoded({ extended: false }));
 app.get("/blockchain", BitcoinController.getBitCoint);
+app.post("/register-and-broadcast-node", BitcoinController.registerAndBroadcastNode);
+app.post("/register-node", BitcoinController.registerNode);
+app.post("/register-nodes-bulk", BitcoinController.registerNodesBulk);
+app.post("/transaction/broadcast", BitcoinController.transactionBroadcast);
+app.post("/transaction", BitcoinController.addTransaction);
+app.post("/receive-new-block", BitcoinController.recieveNewBlock);
+app.post("/regist-all-node", BitcoinController.registAllNode);
 exports.default = app;
 //# sourceMappingURL=app.js.map

@@ -5,7 +5,7 @@ import Transaction from "./models/Transaction";
 const currentNodeUrl = process.argv[3];
 class Blockchain {
   public chain: Block[];
-  public pendingTransaction: Transaction[];
+  public pendingTransaction: Transaction[] ;
   public currentNodeUrl: string;
   public networkNodes: string[];
   public nodeAddress: string;
@@ -66,6 +66,7 @@ class Blockchain {
     for (let i = 1; i < blockchain.chain.length; i++) {
       const currentBlock: Block = blockchain.chain[i];
       const prevBlock: Block = blockchain.chain[i - 1];
+
       const blockHash = this.hashBlock(
         prevBlock.hash,
         {
@@ -74,6 +75,7 @@ class Blockchain {
         },
         currentBlock.nouce,
       );
+
       if (blockHash.substring(0, 4) !== "0000") {
         validChain = false;
       } else if (currentBlock.previousBlockHash !== prevBlock.hash) {
